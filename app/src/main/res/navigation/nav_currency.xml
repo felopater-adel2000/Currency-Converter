@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_currency"
+    app:startDestination="@id/currencyConverterFragment">
+
+    <fragment
+        android:id="@+id/currencyConverterFragment"
+        android:name="com.app.currencyconverter.presentation.currencyconverter.CurrencyConverterFragment"
+        android:label="fragment_currency_converter"
+        tools:layout="@layout/fragment_currency_converter" >
+        <action
+            android:id="@+id/action_currencyConverterFragment_to_rateHistoryFragment"
+            app:destination="@id/rateHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rateHistoryFragment"
+        android:name="com.app.currencyconverter.presentation.ratehistory.RateHistoryFragment"
+        android:label="fragment_rate_history"
+        tools:layout="@layout/fragment_rate_history" />
+</navigation>
