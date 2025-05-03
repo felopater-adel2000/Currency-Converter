@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.app.currencyconverter.R
 
 fun Context.displayToast(@StringRes message: Int) {
@@ -36,6 +37,32 @@ fun Context.displayErrorDialog(message: Int?) {
             message(res = message)
             cornerRadius(12f)
             positiveButton(R.string.text_ok)
+            icon(R.mipmap.ic_launcher)
+        }
+}
+
+fun Context.singleChoiceStringDialog(
+    title: String?,
+    list: List<CharSequence>,
+    pos: Int,
+    callback: (Int) -> Unit,
+): MaterialDialog {
+    return MaterialDialog(this)
+        .show {
+            val result = listItemsSingleChoice(
+                items = list,
+                initialSelection = pos
+            ) { dialog, index, text ->
+                // Invoked when the user selects an item
+//                selectedIndex = index
+                callback(index)
+            }
+            title(text = title)
+            cornerRadius(12f)
+            positiveButton(R.string.text_ok)
+            negativeButton(R.string.text_cancel) {
+                dismiss()
+            }
             icon(R.mipmap.ic_launcher)
         }
 }

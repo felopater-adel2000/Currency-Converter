@@ -9,4 +9,6 @@
     <string name="select_currency">Select Currency</string>
     <string name="amount">Amount</string>
     <string name="show_history">Show History</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="text_cancel">Cancel</string>
 </resources>

@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.currencyconverter.CurrencyConverterFragment">
 
-    <include
-        android:id="@+id/layout_loading"
-        layout="@layout/layout_loading"
-        android:visibility="gone"/>
-
-    <include
-        android:id="@+id/layout_error"
-        layout="@layout/layout_error"
-        android:visibility="gone"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_content_container"
         android:layout_width="match_parent"
@@ -49,12 +39,10 @@
                     android:clickable="true"
                     android:focusable="false"
                     android:hint="@string/select_currency"
-                    android:inputType="none"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_source_currency_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,6 +50,7 @@
                 android:hint="@string/amount">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_source_currency_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
@@ -109,12 +98,10 @@
                     android:clickable="true"
                     android:focusable="false"
                     android:hint="@string/select_currency"
-                    android:inputType="none"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_dest_currency_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -122,6 +109,7 @@
                 android:hint="@string/amount">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_dest_currency_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
@@ -143,5 +131,15 @@
         
         
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/layout_error"
+        layout="@layout/layout_error"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/layout_loading"
+        layout="@layout/layout_loading"
+        android:visibility="gone"/>
 
 </FrameLayout>
