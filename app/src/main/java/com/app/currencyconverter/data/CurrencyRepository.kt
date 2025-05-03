@@ -49,6 +49,34 @@ class CurrencyRepository (
     }
 
     override suspend fun getLatestRates(): DataState<ExchangeRateModel> {
-        TODO("Not yet implemented")
+        return try {
+            val response = remoteDataSource.getLatestRate()
+            if(response.success == true) {
+                DataState.Success(
+                    data = ExchangeRateModel(
+                        baseCurrency = response.base.orDefault(""),
+                        date = response.date.orDefault(""),
+                        rates = response.rates.orEmpty(),
+                        timestamp = response.timestamp.orDefault()
+                    )
+                )
+            } else {
+                DataState.Error(
+                    response = Response(
+                        message = response.error?.type.orDefault("An unexpected error occurred"),
+                        responseType = ResponseType.Dialog()
+                    ),
+                    statusCode = response.error?.code.orDefault(0)
+                )
+            }
+        } catch (e: Throwable) {
+            DataState.Error(
+                response = Response(
+                    message = e.message.orDefault("An unexpected error occurred"),
+                    responseType = ResponseType.Dialog()
+                ),
+                statusCode = 0
+            )
+        }
     }
 }
