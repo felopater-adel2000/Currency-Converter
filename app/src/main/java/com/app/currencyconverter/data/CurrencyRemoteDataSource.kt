@@ -1,6 +1,7 @@
 package com.app.currencyconverter.data
 
 import com.app.currencyconverter.data.response.CurrenciesResponse
+import com.app.currencyconverter.data.response.HistoricalRatesResponse
 import com.app.currencyconverter.data.response.LatestRatesResponse
 
 class CurrencyRemoteDataSource(
@@ -12,5 +13,9 @@ class CurrencyRemoteDataSource(
 
     override suspend fun getLatestRate(): LatestRatesResponse {
         return apiInterface.getLatestRates()
+    }
+    
+    override suspend fun getHistoricalRates(date: String, symbols: String): HistoricalRatesResponse {
+        return apiInterface.getHistoricalRates(date, symbols)
     }
 }

@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.app.currencyconverter.R
 import com.app.currencyconverter.application.base.BaseFragment
+import com.app.currencyconverter.application.extensions.displayToast
 import com.app.currencyconverter.application.extensions.hide
 import com.app.currencyconverter.application.extensions.orDefault
 import com.app.currencyconverter.application.extensions.show
@@ -53,7 +55,7 @@ class CurrencyConverterFragment : BaseFragment<FragmentCurrencyConverterBinding,
     private fun initObservers() {
         viewModel.getLoading().observe(viewLifecycleOwner) { showProgressbar(it) }
 
-        viewModel.getErrorLiveData().observe(viewLifecycleOwner) { stateError -> /*showErrorUI(stateError)*/ }
+        viewModel.getErrorLiveData().observe(viewLifecycleOwner) { stateError -> showErrorUI(stateError) }
 
         viewModel.sourceCurrency.observe(viewLifecycleOwner) { binding.etSourceCurrency.setText(it.code)}
         viewModel.destinationCurrency.observe(viewLifecycleOwner) { binding.etDestCurrency.setText(it.code)}
@@ -109,7 +111,18 @@ class CurrencyConverterFragment : BaseFragment<FragmentCurrencyConverterBinding,
     override fun onClick(v: View?) {
         binding.apply {
             when(v) {
-                btnShowHistory -> {}
+                btnShowHistory -> {
+                    if(viewModel.sourceCurrency.value == null || viewModel.destinationCurrency.value == null) {
+                        requireContext().displayToast("Please select both currencies first.")
+                        return
+                    }
+                    findNavController().navigate(
+                        CurrencyConverterFragmentDirections.actionCurrencyConverterFragmentToRateHistoryFragment(
+                            viewModel.sourceCurrency.value?.code.orEmpty(),
+                            viewModel.destinationCurrency.value?.code.orEmpty()
+                        )
+                    )
+                }
 
                 layoutSourceCurrency, etSourceCurrency -> showCurrencyListDialog(CurrencyType.SOURCE)
 
